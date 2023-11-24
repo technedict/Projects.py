@@ -51,11 +51,7 @@ def userPrompt():
         exit()
 
 if __name__ == '__main__':
-    link = 'https://www.youtube.com/watch?v=vEQ8CXFWLZU'
-    link = 'https://www.youtube.com/watch?v=xYaNsr-nBRY'#Angels
-    link = 'https://www.youtube.com/watch?v=rwFuZaiAOkM'
-    #link = pyip.inputURL('Paste your Youtube Link: ')
-
+    link = pyip.inputURL('Paste your Youtube Link: ')
     getDetails(link)
     userPrompt()
     
