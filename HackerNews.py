@@ -37,5 +37,5 @@ for article in articles:
     )
 
 # Print the scraped data (for verification)
-for i in scraped_data:
-    print(i,"\n")
+for data in scraped_data:
+    print(data,"\n")
