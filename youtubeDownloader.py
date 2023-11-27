@@ -10,11 +10,13 @@ def createdir(path):
 def getDetails(link):
     try:
         ytlink = YouTube(link)
-        ytinfo = ytlink.streams.filter(progressive=True, file_extension='mp4', res='720p').first()
+        yt360p = ytlink.streams.filter(progressive=True, file_extension='mp4', res='360p').first()
+        yt720p = ytlink.streams.filter(progressive=True, file_extension='mp4', res='720p').first()
         print(f'Video Title: {ytlink.title}')
-        print(f'Creator: {ytlink.vid_info['videoDetails']['author']}')
+        print(f'Creator: {ytlink.vid_info["videoDetails"]["author"]}')
         print(f'Number of views: {ytlink.views}')
-        print(f'File size: {ytinfo.filesize_mb}MB')
+        print(f'File size: {yt360p.filesize_mb}MB - 360p')
+        print(f'File size: {yt720p.filesize_mb}MB - 720p')
     except Exception as err:
         print(f'An Error occured: {err}')
         exit()
@@ -43,7 +45,7 @@ def userPrompt():
         prompt = 'yes'
 
     if prompt == 'yes':
-        res = pyip.inputMenu(['360p', '480p', '720p'], prompt='\nChoose your preferred resolution (Default is 720p):\n', numbered=True, blank=True)
+        res = pyip.inputMenu(['360p', '720p'], prompt='\nChoose your preferred resolution (Default is 720p):\n', numbered=True, blank=True)
         if res == '':
             res = '720p'
         ytdownload(link, res=res)
@@ -51,7 +53,9 @@ def userPrompt():
         exit()
 
 if __name__ == '__main__':
-    link = pyip.inputURL('Paste your Youtube Link: ')
-    getDetails(link)
-    userPrompt()
-    
+    try:
+        link = pyip.inputURL('\nPaste your Youtube Link: ')
+        getDetails(link)
+        userPrompt()
+    except KeyboardInterrupt:
+        print('\n\nExiting...')
